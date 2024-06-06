@@ -12,7 +12,7 @@ services:
 #      - /home/atf/db/shop-postgres:/var/lib/postgresql/data
       - postgres-volume:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
@@ -22,7 +22,16 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - "8081:8080"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.5
+    ports:
+      - "8082:8080"
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: pass
 
 volumes:
   postgres-volume:
